@@ -2,3 +2,7 @@
 __pycache__/
 .venv/
 *.pyc
+
+.DS_Store
+
+.bot_initialized

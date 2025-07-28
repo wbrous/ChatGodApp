@@ -14,22 +14,22 @@ This application combines a Twitch bot with a web interface to allow you to sele
 1. Create a `.env` file in the root directory using the `.env.example` as a template:
 ```
 # Twitch credentials
-TWITCH_ACCESS_TOKEN=your_twitch_oauth_token_here
 TWITCH_CHANNEL=your_twitch_channel_name_here
+TWITCH_ACCESS_TOKEN=your_access_token_here
+TWITCH_REFRESH_TOKEN=your_refresh_token
+TWITCH_CLIENT_ID=your_client_id_here
+TWITCH_CLIENT_SECRET=your_client_secret_here
 
-# Amazon Polly credentials
-AWS_ENABLED=1 # 1 to enable, 0 to disable
-AWS_REGION=us-east-1  # Change to your preferred AWS region
-AWS_ACCESS_KEY_ID=your_aws_access_key_id_here
-AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key_here
+...
 
 # Flask secret key (change this to something random)
-SECRET_KEY=your_secret_key_here
+FLASK_SECRET_KEY=your_secret_key_here
+
 ```
 
 You can get a Twitch access token by:
-- Going to https://twitchapps.com/tmi/ and connecting with your Twitch account
-- The token should start with "oauth:"
+- Going to https://twitchtokengenerator.com/, adding your own client_id and client_secret, checking the chat:read scope, and clicking generate token.
+- You can get a client_id and secret at https://dev.twitch.tv/
 
 2. Install dependencies:
 ```bash
