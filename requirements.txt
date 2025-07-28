@@ -1,0 +1,11 @@
+flask==2.3.3
+flask-socketio==5.3.6
+twitchio==2.7.0
+pygame==2.5.2
+gtts==2.4.0
+pytz==2023.3
+python-dotenv==1.0.0
+boto3==1.34.34
+requests==2.31.0
+gunicorn==21.2.0
+eventlet==0.33.3

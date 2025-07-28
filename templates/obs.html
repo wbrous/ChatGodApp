@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html style="background-color: transparent;">
+<head>
+    <title>Chat God App - User {{ user_number }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-textfill@0.6.0/source/jquery.textfill.min.js"></script>
+    
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: transparent !important;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            height: 100%;
+            width: 100%;
+        }
+        
+        /* OBS-specific styles */
+        .obs-container {
+            background-color: transparent !important;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* User content container */
+        .user-content {
+            display: flex;
+            flex-direction: column;
+            background-color: transparent;
+            width: 240px;
+        }
+        
+        /* User name box */
+        .user-name-box {
+            width: 100%;
+            height: 40px;
+            padding: 0px;
+            color: #79f1ff;
+            text-align: center;
+            padding-bottom: 5px; 
+            margin-bottom: 10px;
+            background-color: transparent;
+        }
+        
+        /* User name */
+        .user-name {
+            font-size: 35px;
+            color: rgb(255, 255, 255);
+            /* Complete outline shadow - 8 directions */
+            text-shadow: -3px 0 black, 
+                         -2px -2px black, 
+                         0 -3px black, 
+                         2px -2px black,
+                         3px 0 black,
+                         2px 2px black,
+                         0 3px black,
+                         -2px 2px black;
+            background-color: transparent;
+        }
+        
+        /* User message box */
+        .user-message-box {
+            width: 100%;
+            height: 85px;
+            padding: 0px;
+            text-align: center;
+            background-color: transparent;
+        }
+        
+        /* User message */
+        .user-message {
+            font-size: 15px;
+            color: #79f1ff; /* 79f1ff */
+            padding: 5px;
+            background-color: transparent;
+            word-wrap: break-word;
+            /* Complete outline shadow - 8 directions */
+            text-shadow: -2px 0 black, 
+                         -1.5px -1.5px black, 
+                         0 -2px black, 
+                         1.5px -1.5px black,
+                         2px 0 black,
+                         1.5px 1.5px black,
+                         0 2px black,
+                         -1.5px 1.5px black;
+        }
+    </style>
+    
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            var socket = io();
+            var userNumber = "{{ user_number }}";
+            
+            console.log("OBS overlay initialized for user " + userNumber);
+            
+            socket.on('connect', function() {
+                console.log('Connected to server');
+            });
+            
+            socket.on('message_send', function(msg) {
+                // Only update if message is for our target user
+                if (msg.user_number === userNumber) {
+                    // Update content
+                    if (msg.current_user) {
+                        $('#user-name').text(msg.current_user[0].toUpperCase() + msg.current_user.substring(1));
+                    }
+                    $('#user-message').text(msg.message);
+                    
+                    // Space out the text to fill the box evenly
+                    $(`#user-name-box-${userNumber}`).textfill({
+                        minFontPixels: 2,
+                        maxFontPixels: 50,
+                        explicitHeight: 60,
+                        success: function() {
+                            $(this).css('background-color', 'transparent');
+                            $(this).find('*').css('background-color', 'transparent');
+                        }
+                    });
+                    
+                    $(`#user-message-box-${userNumber}`).textfill({
+                        minFontPixels: 2,
+                        maxFontPixels: 30,
+                        success: function() {
+                            $(this).css('background-color', 'transparent');
+                            $(this).find('*').css('background-color', 'transparent');
+                        }
+                    });
+                }
+            });
+            
+            socket.on('play_audio', function(data) {
+                if (data.user_number === userNumber) {
+                    console.log(`Playing audio for User ${data.user_number}: ${data.message}`);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="obs-container">
+        <div class="user-content">
+            <div class="user-name-box" id="user-name-box-{{ user_number }}"> 
+                <span class="user-name" id="user-name">Temp User</span>
+            </div>
+            <div class="user-message-box" id="user-message-box-{{ user_number }}">
+                <span class="user-message" id="user-message">Waiting for messages...</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
