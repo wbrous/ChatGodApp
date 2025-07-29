@@ -1,7 +1,7 @@
 # ChatGodApp
 
 This application combines a Twitch bot with a web interface to allow you to select specific chatters and have their messages read aloud using Text-to-Speech (TTS).
-The idea behind ChatGodApp was inspired by the popular Twitch Streamer Doug Doug. I have simply taken inspiration (and a bit of css) from his [original project](https://github.com/DougDougGithub/ChatGodApp).
+The idea behind ChatGodApp was inspired by the popular Twitch Streamer Doug Doug. I have simply taken inspiration (and a tiny bit of css) from his [original project](https://github.com/DougDougGithub/ChatGodApp) and made a (in my opinion) more stable and feature-rich "copy" of his original project (note: aside from inspiration, all code was written by me and was not taken from his repo).
 
 ## Features
 
