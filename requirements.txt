@@ -9,3 +9,5 @@ boto3==1.34.34
 requests==2.31.0
 gunicorn==21.2.0
 eventlet==0.33.3
+rich==13.5.2
+obs-websocket-py==1.0.0
