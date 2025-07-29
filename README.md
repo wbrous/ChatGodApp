@@ -42,7 +42,7 @@ pip install -r requirements.txt
 python web_app.py
 ```
 
-4. Open your browser and navigate to `http://localhost:5000`
+4. Open your browser and navigate to `http://localhost:8080`
 
 ## How to Use
 
